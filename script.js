@@ -2,7 +2,7 @@ let totalRounds = 5;
 let currentRound = 0;
 
 let computerPoints = 0;
-let userPoints = 5;
+let playerPoints = 0;
 
 function getPlayerSelection() {
   let playerChoice = null;
@@ -64,4 +64,15 @@ function playRound(playerChoice, computerChoice) {
 function printRoundWinner(winner) {
   let roundWinnerMessage = `And the winner of this round is ${winner}`;
   return roundWinnerMessage;
+}
+
+function calcScore(winner) {
+  if (winner === "computer") {
+    computerPoints += 1;
+  } else if (winner === "player") {
+    playerPoints += 1;
+  } else {
+    computerPoints += 1;
+    playerPoints += 1;
+  }
 }
