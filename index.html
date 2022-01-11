@@ -4,68 +4,107 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock Paper scicorss</title>
+    <title>Rock Project 2</title>
   </head>
   <body>
     <script src="script.js"></script>
   </body>
 </html>
 
-<!-- Stage one - Undersntad the problem -->
-<!-- Create a program that takes user input from 3 possible options (rock, paper, scicorss).
-then, generate a random selection by the computer,
-then you should compare to see if the computer beats the player or the player beats the computer, through the game rules.
-Then you print who won  -->
+<!-- 
+    Stage 1: Understand the problem__
 
-<!-- Stage 2 - Plan -->
-<!-- 1. The program does not have a user interface at the momment-->
-<!-- 2. The program will get only 1 input, at the moment through prompt with the user choice, where the possible choices will only be the 3 optins the game is allowing, negate any other opetions not in the game rules-->
+    Create a rock and paper sciosrrs game program,
+    where there is 3 possible choice for each participate,
+    and they play the best of 5 matches, where tie is possible.
+    The winner is determined by the classic rock paper scisorss game.
 
-<!-- 3. The desierd output would be who won the game in text form (or, output of wrong input if that's the case)-->
+    Stage 2: Plan:
 
-<!-- Step 3 - pesoudo code, given the inputs, what are the necessary steps to return the desired output? -->
+    A. The program does not have a user interface, We use the console.
 
-<!-- When I see this tomrrow, go through 2 things - the lecture, and understand how he wrote pesedo code while writing that he will create variables x to hold integers, etc (the main idea is to see if he include the variables that he wanted to create on his pesedo code alrogitehm or not)
-Then see the article and how they implemented the if with the pesoudo code
-and in general, think on how to write the pesoude code, if you need to include variables or not... (I think you should just mention that you will hold that value in a variable)... -->
+    B. The program get user inputs.
+    User input must be one of the 3 possible choices.
 
-<!-- Program
+    C. The desiered output is the winner of each round,
+    Displaying both picks,
+    Displaying winner of the round message.
+    Displaying the current points of each player,
+    Displaying who won the game (or if its a tie)
 
-    Create "choice" variable to hold the user input
-    Ask the user to choose option and store in the "choice variable
+    Step 3: Pesoudu code:
 
-  When the user input choice
-    IF
-    the input is not one of the possible 3 or a number, 
-    Provide an error messeges with the rules or spelled wrong
-    ELSE 
-    Convert the answer to lowercase,
-    store the input inside a variable 
-    END
+    PROGRAM
+
+    Createa a vraiable to hold the total rounds
+    Createa a variable to hold the current round.
+    
+
+    Create a variable that store computer points
+    Create a variable that store User points
+
+    Createa a function that Prompt a  message to user asking to choose the 3 possible options
+    While the choice is not valid (not one of the 3), ask again until the choice is valid.
+    
+    When valid, convert the user choice to lower case.
+    Return the user choice.
+
+    
+    
+    When Choice is Valid,
+    Create a function that randomly select the computer choice
+
+    Createa a function that print both user pick and computer pick
+
+    Create a function that determine the round winner using both choices and return the round winner
+
+    Create a function that print the round winner using the paramater it gets as the winner
+
+    
+    Create a function that based on who won, add a point to the winner, using the winner as the paramater
+    IF it's a tie, add points to both.
+
+    Create a function that determine who won based on the current score.
+    If user won, return user
+    Else if computer won, return computer
+    Else, Return Tie
+
+    Create a function that print the winner of the game to the screen (getting the winner as paramater)
 
 
-    Create a random function that return numbers between 1 - 3
-    Call that random function when the User input a valid choice
+    Create a function that initilaize the game.
+    While(the round number is smaller then 5) DO
 
-    Create a functions that determine computer choice
+    Add +1 to the current round
+    Create a variable to store the user choice.
+    Get the User Choice
+    Create a variable that holds the computer choice
+    Get the computer Choice
+    Call the function that print both user pick and computer pick
 
-    Create a variable to hold that function return value
-    Create 3 variables to hold ROCK PAPER SCIORRS values
-    Create a variable to tell the computer choice
+    Createa a variable to hold the round winner
+    Call the function that determine the round winner
 
-    Call the computer choice function,
-    IF the value is 1, Computer CHOICE Return is ROCK
-    Else IF the value is 2, Computer Choice Return is PAPER
-    Else Computer CHoice Return is Sciorss
+    Call the function that print the round winner with the round winner as variable
 
-    Create a function that calculate the winner of the round
-    Create a variable to hold the winnerCalculation value
-    If computerChoice is Rock and user choice Paper, || ComputerChoiec is sciorrs and userchoice is rock, or computerchoice is paper and userchoice is scicorrs User Won
+    Call the functions that calculate current score with the round winner
 
-    Else If computerChoice is Rock and user Scicorrs, computer choice is scicorrs and user choice is paper, and computer choice is paper and user choice is rock computer won
-    Else its a tie
 
-    END
+     If ther computer has 3 points, 
+    Call the function that print the winner with the winner name
+    exit the loop
+    ELSE if the ueer has 3 points, exit the loop
+    Call the function that print the winner with the winner name
+    exit the loop
 
-    Print the winner of the round to the screen
-  -->
+    If this is the final round,
+    get current score 
+    Create a variable the hold the winner.
+    Call the winner caclulate function and store the winner inside the variable.
+    Call the print winner function with the winner as a paramater
+
+    Exit the loop.
+
+
+
+ -->
