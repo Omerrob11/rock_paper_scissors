@@ -44,7 +44,7 @@ function getComputerChoice() {
 function printPlayersPicks(playerSelection, computerSelection) {
   let playersPicksMessage = `Player Select ${playerSelection}, Computer Select ${computerSelection}`;
 
-  return playersPicksMessage;
+  console.log(playersPicksMessage);
 }
 
 function playRound(playerChoice, computerChoice) {
@@ -61,12 +61,13 @@ function playRound(playerChoice, computerChoice) {
   }
 }
 
+// When changing dom, all console.log() messages will direct a specifeid div to change
 function printRoundWinner(winner) {
   let roundWinnerMessage = `And the winner of this round is ${winner}`;
-  return roundWinnerMessage;
+  console.log(roundWinnerMessage);
 }
 
-function calcScore(winner) {
+function addScore(winner) {
   if (winner === "computer") {
     computerPoints += 1;
   } else if (winner === "player") {
@@ -75,4 +76,18 @@ function calcScore(winner) {
     computerPoints += 1;
     playerPoints += 1;
   }
+}
+
+function getGameWinner() {
+  if (computerPoints > playerPoints) {
+    return "computer";
+  } else if (computerPoints === playerPoints) {
+    return "tie";
+  } else {
+    return "player";
+  }
+}
+
+function printWinner(winner) {
+  console.log(`and the winner of this game is.... ${winner}`);
 }
