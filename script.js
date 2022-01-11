@@ -47,14 +47,14 @@ function printPlayersPicks(playerSelection, computerSelection) {
   console.log(playersPicksMessage);
 }
 
-function playRound(playerChoice, computerChoice) {
+function playRound(playerSelection, computerSelection) {
   if (
-    (computerChoice === "rock" && playerChoice === "paper") ||
-    (computerChoice === "scissors" && playerChoice === "rock") ||
-    (computerChoice === "paper" && playerChoice === "scissors")
+    (computerSelection === "rock" && playerSelection === "paper") ||
+    (computerSelection === "scissors" && playerSelection === "rock") ||
+    (computerSelection === "paper" && playerSelection === "scissors")
   ) {
     return "player";
-  } else if (playerChoice === computerChoice) {
+  } else if (playerSelection === computerSelection) {
     return "tie";
   } else {
     return "computer";
@@ -72,13 +72,18 @@ function addScore(winner) {
     computerPoints += 1;
   } else if (winner === "player") {
     playerPoints += 1;
-  } else {
-    computerPoints += 1;
-    playerPoints += 1;
   }
+  //     else {
+  //     computerPoints += 1;
+  //     playerPoints += 1;
+  //   }
 }
 
-function getGameWinner() {
+function printScore() {
+  console.log(`Computer has ${computerPoints}, player has ${playerPoints}`);
+}
+
+function calcGameWinner() {
   if (computerPoints > playerPoints) {
     return "computer";
   } else if (computerPoints === playerPoints) {
@@ -90,4 +95,37 @@ function getGameWinner() {
 
 function printWinner(winner) {
   console.log(`and the winner of this game is.... ${winner}`);
+}
+
+function game() {
+  for (let i = 0; i < totalRounds; i++) {
+    currentRound += 1;
+    let playerSelection = getPlayerSelection();
+    let computerSelection = getComputerChoice();
+
+    printPlayersPicks(playerSelection, computerSelection);
+
+    let roundWinner = playRound(playerSelection, computerSelection);
+    printRoundWinner(roundWinner);
+    addScore(roundWinner);
+    printScore();
+
+    if (computerPoints === 3) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+      break;
+    } else if (playerPoints === 3) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+      break;
+    }
+
+    if (currentRound === 5) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+    }
+  }
 }
