@@ -4,6 +4,41 @@ let currentRound = 0;
 let computerPoints = 0;
 let playerPoints = 0;
 
+let testing = 0;
+
+function game() {
+  for (let i = 0; i < totalRounds; i++) {
+    currentRound += 1;
+    let playerSelection = getPlayerSelection();
+    let computerSelection = getComputerChoice();
+
+    printPlayersPicks(playerSelection, computerSelection);
+
+    let roundWinner = playRound(playerSelection, computerSelection);
+    printRoundWinner(roundWinner);
+    addScore(roundWinner);
+    printScore();
+
+    if (computerPoints === 3) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+      break;
+    } else if (playerPoints === 3) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+      break;
+    }
+
+    if (currentRound === 5) {
+      let winner = calcGameWinner();
+      printScore();
+      printWinner(winner);
+    }
+  }
+}
+
 function getPlayerSelection() {
   let playerChoice = null;
   do {
@@ -95,37 +130,4 @@ function calcGameWinner() {
 
 function printWinner(winner) {
   console.log(`and the winner of this game is.... ${winner}`);
-}
-
-function game() {
-  for (let i = 0; i < totalRounds; i++) {
-    currentRound += 1;
-    let playerSelection = getPlayerSelection();
-    let computerSelection = getComputerChoice();
-
-    printPlayersPicks(playerSelection, computerSelection);
-
-    let roundWinner = playRound(playerSelection, computerSelection);
-    printRoundWinner(roundWinner);
-    addScore(roundWinner);
-    printScore();
-
-    if (computerPoints === 3) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-      break;
-    } else if (playerPoints === 3) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-      break;
-    }
-
-    if (currentRound === 5) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-    }
-  }
 }
