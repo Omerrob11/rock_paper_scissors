@@ -119,8 +119,11 @@ function playRound(playerSelection, computerSelection) {
 
 // When changing dom, all console.log() messages will direct a specifeid div to change
 function printRoundWinner(winner) {
-  let roundWinnerMessage = `And the winner of this round is ${winner}`;
-  console.log(roundWinnerMessage);
+  debugger;
+  let printRoundMessage = document.querySelector("#round-winner__message");
+  winner === "tie"
+    ? (printRoundMessage.textContent = "it's a tie!")
+    : (printRoundMessage.textContent = `And the winner of this round is ${winner}`);
 }
 
 function addScore(winner) {
