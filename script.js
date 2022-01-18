@@ -4,38 +4,44 @@ let currentRound = 0;
 let computerPoints = 0;
 let playerPoints = 0;
 
-let testing = 0;
+function game(e) {
+  let playerSelection = getPlayerChoice(e);
+  let computerSelection = getComputerChoice();
+  console.log(
+    `player choice:${playerSelection}, computer choice: ${computerSelection}`
+  );
+  let roundWinner = playRound(playerSelection, computerSelection);
+  printRoundWinner(roundWinner);
+  addScore(roundWinner);
+  printScore();
 
-function game() {
+  console.log(roundWinner);
+
   for (let i = 0; i < totalRounds; i++) {
-    currentRound += 1;
-    let playerSelection = getPlayerSelection();
-    let computerSelection = getComputerChoice();
-
-    printPlayersPicks(playerSelection, computerSelection);
-
-    let roundWinner = playRound(playerSelection, computerSelection);
-    printRoundWinner(roundWinner);
-    addScore(roundWinner);
-    printScore();
-
-    if (computerPoints === 3) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-      break;
-    } else if (playerPoints === 3) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-      break;
-    }
-
-    if (currentRound === 5) {
-      let winner = calcGameWinner();
-      printScore();
-      printWinner(winner);
-    }
+    // currentRound += 1;
+    // let playerSelection = getPlayerSelection();
+    // let computerSelection = getComputerChoice();
+    // printPlayersPicks(playerSelection, computerSelection);
+    // let roundWinner = playRound(playerSelection, computerSelection);
+    // printRoundWinner(roundWinner);
+    // addScore(roundWinner);
+    // printScore();
+    // if (computerPoints === 3) {
+    //   let winner = calcGameWinner();
+    //   printScore();
+    //   printWinner(winner);
+    //   break;
+    // } else if (playerPoints === 3) {
+    //   let winner = calcGameWinner();
+    //   printScore();
+    //   printWinner(winner);
+    //   break;
+    // }
+    // if (currentRound === 5) {
+    //   let winner = calcGameWinner();
+    //   printScore();
+    //   printWinner(winner);
+    // }
   }
 }
 
@@ -133,3 +139,15 @@ function printWinner(winner) {
 }
 
 // Listening for player selection
+
+let buttons = document.querySelectorAll(".player-selection__btn");
+console.log(buttons);
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", game);
+  console.log(btn);
+});
+
+function getPlayerChoice(e) {
+  return e.target.textContent.trim().toLowerCase();
+}
