@@ -131,3 +131,5 @@ function calcGameWinner() {
 function printWinner(winner) {
   console.log(`and the winner of this game is.... ${winner}`);
 }
+
+// Listening for player selection
