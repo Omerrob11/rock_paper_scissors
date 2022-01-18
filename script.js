@@ -10,12 +10,22 @@ function game(e) {
   console.log(
     `player choice:${playerSelection}, computer choice: ${computerSelection}`
   );
+  // Printing picks to screen
+  printPlayersPicks(playerSelection, computerSelection);
+
+  // Determine round winner
   let roundWinner = playRound(playerSelection, computerSelection);
+
+  // Printing round winner to screen
   printRoundWinner(roundWinner);
+
+  // Determine current score
   addScore(roundWinner);
+
+  // Printing current score
   printScore();
 
-  console.log(roundWinner);
+  // console.log(roundWinner);
 
   for (let i = 0; i < totalRounds; i++) {
     // currentRound += 1;
@@ -83,9 +93,14 @@ function getComputerChoice() {
 }
 
 function printPlayersPicks(playerSelection, computerSelection) {
-  let playersPicksMessage = `Player Select ${playerSelection}, Computer Select ${computerSelection}`;
+  let playerPickPara = document.querySelector(".picks__player");
+  let computerPickPara = document.querySelector(".picks__computer");
 
-  console.log(playersPicksMessage);
+  playerPickPara.textContent = `Player Select ${playerSelection}`;
+  computerPickPara.textContent = `Computer Select ${computerSelection}`;
+  // let playersPicksMessage = `Player Select ${playerSelection}, Computer Select ${computerSelection}`;
+
+  // console.log(playersPicksMessage);
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -109,10 +124,15 @@ function printRoundWinner(winner) {
 }
 
 function addScore(winner) {
+  let playerScorePara = document.querySelector("#score__player");
+  let computerScorePara = document.querySelector("#score__computer");
+
   if (winner === "computer") {
     computerPoints += 1;
+    computerScorePara.textContent = `Computer Points:${computerPoints}`;
   } else if (winner === "player") {
     playerPoints += 1;
+    playerScorePara.textContent = `Player Points: ${playerPoints}`;
   }
   //     else {
   //     computerPoints += 1;

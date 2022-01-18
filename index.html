@@ -9,10 +9,11 @@
   <body>
     <header class="header">
       <h1 class="header__title">Welcome To Rock Paper Scicorrs</h1>
-      <div class="header__score">
-        <p class="header__score__message"></p>
-      </div>
     </header>
+    <div class="score">
+      <p id="score__player">Player Points: 0</p>
+      <p id="score__computer">Computer Points: 0</p>
+    </div>
 
     <div class="player-selection">
       <button class="player-selection__rock player-selection__btn">Rock</button>
@@ -26,11 +27,13 @@
       </button>
     </div>
 
-    <div class="picks">
-      <div class="picks__player">
-        <p class="picks__player__current"></p>
-        <div class="picks__compiter__current-pick"></div>
-      </div>
+    <div id="picks">
+      <p class="picks__player"></p>
+      <p class="picks__computer"></p>
+    </div>
+
+    <div class="round-winner">
+      <div class="round-winner__message"></div>
     </div>
     <script src="script.js"></script>
   </body>
