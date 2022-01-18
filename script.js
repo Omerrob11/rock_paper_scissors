@@ -5,6 +5,9 @@ let computerPoints = 0;
 let playerPoints = 0;
 
 function game(e) {
+  currentRound++;
+  printCurrentRound(currentRound);
+
   let playerSelection = getPlayerChoice(e);
   let computerSelection = getComputerChoice();
   console.log(
@@ -23,59 +26,17 @@ function game(e) {
   addScore(roundWinner);
 
   // Printing current score
-  printScore();
+  printScore(playerPoints, computerPoints);
 
-  // console.log(roundWinner);
-
-  for (let i = 0; i < totalRounds; i++) {
-    // currentRound += 1;
-    // let playerSelection = getPlayerSelection();
-    // let computerSelection = getComputerChoice();
-    // printPlayersPicks(playerSelection, computerSelection);
-    // let roundWinner = playRound(playerSelection, computerSelection);
-    // printRoundWinner(roundWinner);
-    // addScore(roundWinner);
-    // printScore();
-    // if (computerPoints === 3) {
-    //   let winner = calcGameWinner();
-    //   printScore();
-    //   printWinner(winner);
-    //   break;
-    // } else if (playerPoints === 3) {
-    //   let winner = calcGameWinner();
-    //   printScore();
-    //   printWinner(winner);
-    //   break;
-    // }
-    // if (currentRound === 5) {
-    //   let winner = calcGameWinner();
-    //   printScore();
-    //   printWinner(winner);
-    // }
+  if (currentRound === 5 || computerPoints === 3 || playerPoints === 3) {
+    let winner = calcGameWinner();
+    printWinner(winner);
   }
 }
 
-function getPlayerSelection() {
-  let playerChoice = null;
-  do {
-    playerChoice = prompt("Please choose between Rock, Paper, Scissors");
-    playerChoice = playerChoice === null ? null : playerChoice.toLowerCase();
-
-    if (
-      playerChoice !== "paper" &&
-      playerChoice !== "rock" &&
-      playerChoice !== "scissors"
-    ) {
-      console.log(
-        "Error, please check a value that is one of the possible 3 choices"
-      );
-    }
-  } while (
-    playerChoice !== "paper" &&
-    playerChoice !== "rock" &&
-    playerChoice !== "scissors"
-  );
-  return playerChoice;
+function printCurrentRound(currentRound) {
+  let currentRoundPara = document.querySelector(".round-number__current");
+  currentRoundPara.textContent = `Current Round Is : ${currentRound}`;
 }
 
 function getComputerChoice() {
@@ -98,9 +59,6 @@ function printPlayersPicks(playerSelection, computerSelection) {
 
   playerPickPara.textContent = `Player Select ${playerSelection}`;
   computerPickPara.textContent = `Computer Select ${computerSelection}`;
-  // let playersPicksMessage = `Player Select ${playerSelection}, Computer Select ${computerSelection}`;
-
-  // console.log(playersPicksMessage);
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -117,9 +75,7 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// When changing dom, all console.log() messages will direct a specifeid div to change
 function printRoundWinner(winner) {
-  debugger;
   let printRoundMessage = document.querySelector("#round-winner__message");
   winner === "tie"
     ? (printRoundMessage.textContent = "it's a tie!")
@@ -127,24 +83,19 @@ function printRoundWinner(winner) {
 }
 
 function addScore(winner) {
+  if (winner === "computer") {
+    computerPoints += 1;
+  } else if (winner === "player") {
+    playerPoints += 1;
+  }
+}
+
+function printScore(playerPoints, computerPoints) {
   let playerScorePara = document.querySelector("#score__player");
   let computerScorePara = document.querySelector("#score__computer");
 
-  if (winner === "computer") {
-    computerPoints += 1;
-    computerScorePara.textContent = `Computer Points:${computerPoints}`;
-  } else if (winner === "player") {
-    playerPoints += 1;
-    playerScorePara.textContent = `Player Points: ${playerPoints}`;
-  }
-  //     else {
-  //     computerPoints += 1;
-  //     playerPoints += 1;
-  //   }
-}
-
-function printScore() {
-  console.log(`Computer has ${computerPoints}, player has ${playerPoints}`);
+  playerScorePara.textContent = `Player Points: ${playerPoints}`;
+  computerScorePara.textContent = `Computer Points:${computerPoints}`;
 }
 
 function calcGameWinner() {
@@ -158,7 +109,10 @@ function calcGameWinner() {
 }
 
 function printWinner(winner) {
-  console.log(`and the winner of this game is.... ${winner}`);
+  let winnerMessage = document.querySelector("#game-winner__message");
+  winner === "tie"
+    ? (winnerMessage.textContent = "I'ts a tie game !")
+    : (winnerMessage.textContent = `and the winner of the game is ${winner}`);
 }
 
 // Listening for player selection
