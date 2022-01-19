@@ -121,7 +121,14 @@ p {
 }
 
 /* Score Section */
-
+.score {
+  border: 2px solid blue;
+  justify-content: space-around;
+  display: flex;
+}
+.score__text {
+  padding: 16px;
+}
 /* Round Number Section */
 
 /* Player Choice Section */
