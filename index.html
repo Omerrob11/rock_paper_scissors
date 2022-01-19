@@ -4,45 +4,50 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Rock Project 2</title>
   </head>
   <body>
-    <header class="header">
-      <h1 class="header__title">Welcome To Rock Paper Scicorrs</h1>
-    </header>
+    <div class="wrapper">
+      <header class="header">
+        <h1 class="header__title">Odin Rock Paper Scisorrs</h1>
+      </header>
 
-    <div class="score">
-      <p id="score__player">Player Points: 0</p>
-      <p id="score__computer">Computer Points: 0</p>
-    </div>
+      <div class="round-number">
+        <h2 class="round-number__current">Current Round Is : 0</h2>
+      </div>
 
-    <div class="round-number">
-      <p class="round-number__current">Current Round Is : 0</p>
-    </div>
+      <div class="score">
+        <p id="score__player">Player Points: 0</p>
+        <p id="score__computer">Computer Points: 0</p>
+      </div>
 
-    <div class="player-selection">
-      <button class="player-selection__rock player-selection__btn">Rock</button>
+      <div class="player-selection">
+        <button class="player-selection__rock player-selection__btn">
+          Rock
+        </button>
 
-      <button class="player-selection__paper player-selection__btn">
-        Paper
-      </button>
+        <button class="player-selection__paper player-selection__btn">
+          Paper
+        </button>
 
-      <button class="player-selection__scissors player-selection__btn">
-        Scissors
-      </button>
-    </div>
+        <button class="player-selection__scissors player-selection__btn">
+          Scissors
+        </button>
+      </div>
 
-    <div id="picks">
-      <p class="picks__player"></p>
-      <p class="picks__computer"></p>
-    </div>
+      <div id="picks">
+        <p class="picks__player"></p>
+        <p class="picks__computer"></p>
+      </div>
 
-    <div id="round-winner">
-      <p id="round-winner__message"></p>
-    </div>
+      <div id="round-winner">
+        <p id="round-winner__message"></p>
+      </div>
 
-    <div class="game-winner">
-      <p id="game-winner__message"></p>
+      <div class="game-winner">
+        <p id="game-winner__message"></p>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
