@@ -76,7 +76,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function printRoundWinner(winner) {
-  let printRoundMessage = document.querySelector("#round-winner__message");
+  let printRoundMessage = document.querySelector(".round-winner__message");
   winner === "tie"
     ? (printRoundMessage.textContent = "it's a tie!")
     : (printRoundMessage.textContent = `And the winner of this round is ${winner}`);
@@ -91,8 +91,8 @@ function addScore(winner) {
 }
 
 function printScore(playerPoints, computerPoints) {
-  let playerScorePara = document.querySelector("#score__player");
-  let computerScorePara = document.querySelector("#score__computer");
+  let playerScorePara = document.querySelector(".score__player");
+  let computerScorePara = document.querySelector(".score__computer");
 
   playerScorePara.textContent = `Player Points: ${playerPoints}`;
   computerScorePara.textContent = `Computer Points:${computerPoints}`;
@@ -109,7 +109,7 @@ function calcGameWinner() {
 }
 
 function printWinner(winner) {
-  let winnerMessage = document.querySelector("#game-winner__message");
+  let winnerMessage = document.querySelector(".game-winner__message");
   winner === "tie"
     ? (winnerMessage.textContent = "I'ts a tie game !")
     : (winnerMessage.textContent = `and the winner of the game is ${winner}`);
