@@ -171,5 +171,21 @@ p {
   font-size: 24px;
 }
 /* Round Winner Message Section */
-
+#round-winner {
+  border: 2px solid black;
+  text-align: center;
+}
+.round-winner__message {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 16px;
+}
 /* Game Winner Message Section */
+#game-winner {
+  border: 2px solid green;
+  text-align: center;
+}
+.game-winner__message {
+  font-size: 24px;
+  padding: 16px;
+}

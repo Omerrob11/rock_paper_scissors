@@ -28,9 +28,11 @@ function game(e) {
   // Printing current score
   printScore(playerPoints, computerPoints);
 
-  if (currentRound === 5 || computerPoints === 3 || playerPoints === 3) {
+  if (computerPoints === 5 || playerPoints === 5) {
     let winner = calcGameWinner();
     printWinner(winner);
+    printPlayAgainBtn();
+    removeListeners();
   }
 }
 
@@ -57,18 +59,30 @@ function printPlayersPicks(playerSelection, computerSelection) {
   let playerPickPara = document.querySelector(".picks__player");
   let computerPickPara = document.querySelector(".picks__computer");
 
-  playerPickPara.textContent = `Player Selected ${playerSelection}`;
+  let convertPlayerToEmoji = null;
 
-  let convertToEmoji = null;
-
-  if (computerSelection === "rock") {
-    convertToEmoji = "&#x270A";
-  } else if (computerSelection === "paper") {
-    convertToEmoji = "&#x270B";
-  } else {
-    convertToEmoji = "&#x1F918";
+  switch (playerSelection) {
+    case "rock":
+      convertPlayerToEmoji = "&#x270A";
+      break;
+    case "paper":
+      convertPlayerToEmoji = "&#x270B";
+      break;
+    case "scissors":
+      convertPlayerToEmoji = "&#x1F918";
   }
-  computerPickPara.innerHTML = `Computer Selected ${convertToEmoji}`;
+
+  let convertComputerToEmoji = null;
+  if (computerSelection === "rock") {
+    convertComputerToEmoji = "&#x270A";
+  } else if (computerSelection === "paper") {
+    convertComputerToEmoji = "&#x270B";
+  } else {
+    convertComputerToEmoji = "&#x1F918";
+  }
+
+  playerPickPara.innerHTML = `Player Selected ${convertPlayerToEmoji}`;
+  computerPickPara.innerHTML = `Computer Selected ${convertComputerToEmoji}`;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -125,6 +139,21 @@ function printWinner(winner) {
     : (winnerMessage.textContent = `and the winner of the game is ${winner}`);
 }
 
+function printPlayAgainBtn() {
+  let gameWinnerDiv = document.querySelector("#game-winner");
+  debugger;
+  let playAgainBtn = document.createElement("button");
+  playAgainBtn.textContent = "Play Again";
+  playAgainBtn.classList.add("play-again-btn");
+  playAgainBtn.addEventListener("click", resetGameScore);
+  gameWinnerDiv.appendChild(playAgainBtn);
+}
+
+function resetGameScore() {
+  let currentRoundHeading = document.querySelector(".round-number__current");
+  currentRoundHeading.textContent = "Current Round Is : 0";
+}
+
 // Listening for player selection
 
 let buttons = document.querySelectorAll(".player-selection__btn");
@@ -132,9 +161,36 @@ console.log(buttons);
 
 buttons.forEach((btn) => {
   btn.addEventListener("click", game);
-  console.log(btn);
+  // console.log(btn);
 });
 
 function getPlayerChoice(e) {
-  return e.target.textContent.trim().toLowerCase();
+  let converEmojiToString = e.target.textContent
+    .trim()
+    .codePointAt(0)
+    .toString(16);
+
+  let convertToGameOption = null;
+
+  let emo = String.fromCodePoint("0x" + converEmojiToString);
+
+  converEmojiToString === "270a"
+    ? (convertToGameOption = "rock")
+    : converEmojiToString === "270b"
+    ? (convertToGameOption = "paper")
+    : converEmojiToString === "1f918"
+    ? (convertToGameOption = "scissors")
+    : null;
+
+  return convertToGameOption;
+}
+
+function removeListeners() {
+  let allPlayerSelectionBtn = document.querySelectorAll(
+    ".player-selection__btn"
+  );
+  console.log(allPlayerSelectionBtn);
+  allPlayerSelectionBtn.forEach((btn) => {
+    btn.removeEventListener("click", game);
+  });
 }
