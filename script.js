@@ -149,11 +149,6 @@ function printPlayAgainBtn() {
   gameWinnerDiv.appendChild(playAgainBtn);
 }
 
-function resetGameScore() {
-  let currentRoundHeading = document.querySelector(".round-number__current");
-  currentRoundHeading.textContent = "Current Round Is : 0";
-}
-
 // Listening for player selection
 
 let buttons = document.querySelectorAll(".player-selection__btn");
@@ -192,5 +187,47 @@ function removeListeners() {
   console.log(allPlayerSelectionBtn);
   allPlayerSelectionBtn.forEach((btn) => {
     btn.removeEventListener("click", game);
+  });
+}
+
+function resetGameScore() {
+  let currentRoundReset = document.querySelector(".round-number__current");
+  currentRoundReset.textContent = "Current Round Is : 0";
+
+  let computerScoreReset = document.querySelector(".score__computer");
+  computerScoreReset.textContent = "Computer Points: 0";
+
+  let playerPointsReset = document.querySelector(".score__player");
+  playerPointsReset.textContent = "Player Points: 0";
+
+  let picksComputerReset = document.querySelector(".picks__computer");
+  picksComputerReset.textContent = "Computer Selected: ?";
+
+  let picksPlayerReset = document.querySelector(".picks__player");
+  picksPlayerReset.textContent = "Player Selected: ?";
+
+  let roundWinnerMessageReset = document.querySelector(
+    ".round-winner__message"
+  );
+  roundWinnerMessageReset.textContent = "";
+
+  let gameWinnerMessageReset = document.querySelector(".game-winner__message");
+  gameWinnerMessageReset.textContent = "";
+
+  let playAgainBtn = document.querySelector(".play-again-btn");
+  let gameWinnerDiv = document.querySelector("#game-winner");
+  gameWinnerDiv.removeChild(playAgainBtn);
+
+  currentRound = 0;
+
+  computerPoints = 0;
+  playerPoints = 0;
+
+  let buttons = document.querySelectorAll(".player-selection__btn");
+  console.log(buttons);
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", game);
+    // console.log(btn);
   });
 }
