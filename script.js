@@ -57,8 +57,18 @@ function printPlayersPicks(playerSelection, computerSelection) {
   let playerPickPara = document.querySelector(".picks__player");
   let computerPickPara = document.querySelector(".picks__computer");
 
-  playerPickPara.textContent = `Player Select ${playerSelection}`;
-  computerPickPara.textContent = `Computer Select ${computerSelection}`;
+  playerPickPara.textContent = `Player Selected ${playerSelection}`;
+
+  let convertToEmoji = null;
+
+  if (computerSelection === "rock") {
+    convertToEmoji = "&#x270A";
+  } else if (computerSelection === "paper") {
+    convertToEmoji = "&#x270B";
+  } else {
+    convertToEmoji = "&#x1F918";
+  }
+  computerPickPara.innerHTML = `Computer Selected ${convertToEmoji}`;
 }
 
 function playRound(playerSelection, computerSelection) {

@@ -161,5 +161,15 @@ p {
 }
 
 /* Players Picks Section */
+#picks {
+  border: 2px solid blue;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+}
+.picks__message {
+  font-size: 24px;
+}
+/* Round Winner Message Section */
 
-/* Winner Message Section */
+/* Game Winner Message Section */
