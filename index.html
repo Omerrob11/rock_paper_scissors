@@ -8,44 +8,68 @@
     <title>Rock Project 2</title>
   </head>
   <body>
+    <div class="modal-active"></div>
+    <div class="modal">
+      <div class="winner-display">
+        <p class="winner-display__message">Player Won</p>
+      </div>
+      <button class="play-again-button">Play Again</button>
+    </div>
     <div class="wrapper">
       <header id="header">
         <h1 class="header__title">Odin Rock Paper Scisorrs</h1>
       </header>
-      <div id="round-number">
-        <h2 class="round-number__current">Current Round Is : 0</h2>
-      </div>
-      <div id="score">
-        <h2 class="score__text score__player">Player Points: 0</h2>
-        <h2 class="score__text score__computer">Computer Points: 0</h2>
-      </div>
 
-      <div id="player-selection">
-        <button class="player-selection__rock player-selection__btn">
-         &#x270A
-        </button>
+        <div class="score">
+          <h2 class="score__text score__player">Player Points: 0</h2>
+             <h2 class="score__text score__computer">Computer Points: 0</h2>
+          </div>
 
-
-        <button class="player-selection__paper player-selection__btn">
-          &#x270B	
-        </button>
-
-        <button class="player-selection__scissors player-selection__btn">
-          &#x1F918
-        </button>
-      </div>
+           
+        <div id="round-winner">
+        <h2 class="round-winner__message">Choose your pick</h2>
+        <p class="round-winner__instructions">
+          First to 5 wins
+        </p>
+        </div>
+         
 
       <div id="picks">
-        <p class="picks__player picks__message">Player Selected: ?</p>
-        <p class="picks__computer picks__message">Computer Selected: ?</p>
-      </div>
-
-      <div id="round-winner">
-        <p class="round-winner__message"></p>
+        <div class="picks__player picks__section">
+          <p class="picks__player__message picks__message">Player Selected: </p>
+          <p class="picks_player__emoji picks__emoji">?</p>
+        </div>
+        
+        <div class="picks__computer picks__section">
+          <p class="picks__computer__message picks__message">Computer Selected: </p>
+          <p class="picks__computer__emoji picks__emoji">?
+          </p>
+        </div>
+        
       </div>
 
       <div id="game-winner">
         <p class="game-winner__message"></p>
+        <p class="game-winner__decleration"></p>
+      </div>
+
+      <div id="round-number">
+        <h2 class="round-number__current">Current Round Is : 0</h2>
+      </div>
+
+      <div id="player-selection">
+          <button class="player-selection__rock player-selection__btn">
+          &#x270A
+          </button>
+
+
+          <button class="player-selection__paper player-selection__btn">
+            &#x270B	
+          </button>
+
+          <button class="player-selection__scissors player-selection__btn">
+            &#x1F918
+          </button>
       </div>
     </div>
     <script src="script.js"></script>

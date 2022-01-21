@@ -13,6 +13,7 @@ function game(e) {
   console.log(
     `player choice:${playerSelection}, computer choice: ${computerSelection}`
   );
+
   // Printing picks to screen
   printPlayersPicks(playerSelection, computerSelection);
 
@@ -20,7 +21,7 @@ function game(e) {
   let roundWinner = playRound(playerSelection, computerSelection);
 
   // Printing round winner to screen
-  printRoundWinner(roundWinner);
+  printRoundWinner(roundWinner, playerSelection, computerSelection);
 
   // Determine current score
   addScore(roundWinner);
@@ -34,6 +35,12 @@ function game(e) {
     printPlayAgainBtn();
     removeListeners();
   }
+}
+
+function converToFirstLetter(str) {
+  str = str.split("");
+  str[0] = str[0].toUpperCase();
+  return str.join("");
 }
 
 function printCurrentRound(currentRound) {
@@ -56,8 +63,8 @@ function getComputerChoice() {
 }
 
 function printPlayersPicks(playerSelection, computerSelection) {
-  let playerPickPara = document.querySelector(".picks__player");
-  let computerPickPara = document.querySelector(".picks__computer");
+  let playerPickPara = document.querySelector(".picks_player__emoji");
+  let computerPickPara = document.querySelector(".picks__computer__emoji");
 
   let convertPlayerToEmoji = null;
 
@@ -81,8 +88,8 @@ function printPlayersPicks(playerSelection, computerSelection) {
     convertComputerToEmoji = "&#x1F918";
   }
 
-  playerPickPara.innerHTML = `Player Selected ${convertPlayerToEmoji}`;
-  computerPickPara.innerHTML = `Computer Selected ${convertComputerToEmoji}`;
+  playerPickPara.innerHTML = `${convertPlayerToEmoji}`;
+  computerPickPara.innerHTML = `${convertComputerToEmoji}`;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -99,11 +106,18 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function printRoundWinner(winner) {
+function printRoundWinner(winner, playerSelection, computerSelection) {
   let printRoundMessage = document.querySelector(".round-winner__message");
   winner === "tie"
-    ? (printRoundMessage.textContent = "it's a tie!")
-    : (printRoundMessage.textContent = `And the winner of this round is ${winner}`);
+    ? (printRoundMessage.textContent = "It's A Tie")
+    : (printRoundMessage.textContent = `The Winner Of This Round Is: ${winner.toUpperCase()}`);
+
+  let exlpainWinner = document.querySelector(".round-winner__instructions");
+  winner === "tie"
+    ? (exlpainWinner.textContent = `You both picked ${playerSelection}`)
+    : winner === "player"
+    ? (exlpainWinner.textContent = `${playerSelection} beats ${computerSelection}`)
+    : (exlpainWinner.textContent = `${computerSelection} beats ${playerSelection}`);
 }
 
 function addScore(winner) {
@@ -134,14 +148,17 @@ function calcGameWinner() {
 
 function printWinner(winner) {
   let winnerMessage = document.querySelector(".game-winner__message");
+  debugger;
+  let winnerDecleration = document.querySelector(".game-winner__decleration");
+  winnerMessage.textContent = "Game over!";
   winner === "tie"
-    ? (winnerMessage.textContent = "I'ts a tie game !")
-    : (winnerMessage.textContent = `and the winner of the game is ${winner}`);
+    ? (winnerDecleration.textContent = "I'ts a tie game !")
+    : (winnerDecleration.textContent =
+        `The winner is: ${winner}`.toUpperCase());
 }
 
 function printPlayAgainBtn() {
   let gameWinnerDiv = document.querySelector("#game-winner");
-  debugger;
   let playAgainBtn = document.createElement("button");
   playAgainBtn.textContent = "Play Again";
   playAgainBtn.classList.add("play-again-btn");
