@@ -1,19 +1,14 @@
-let totalRounds = 5;
+// Global Variables
 let currentRound = 0;
-
 let computerPoints = 0;
 let playerPoints = 0;
 
 function game(e) {
-  console.log(e);
   currentRound++;
   printCurrentRound(currentRound);
 
   let playerSelection = getPlayerChoice(e);
   let computerSelection = getComputerChoice();
-  console.log(
-    `player choice:${playerSelection}, computer choice: ${computerSelection}`
-  );
 
   // Printing picks to screen
   printPlayersPicks(playerSelection, computerSelection);
@@ -33,22 +28,42 @@ function game(e) {
   if (computerPoints === 5 || playerPoints === 5) {
     let winner = calcGameWinner();
     printWinner(winner);
-    printPlayAgainBtn();
+    // printPlayAgainBtn();
     removeListeners();
   }
 }
 
-function converToFirstLetter(str) {
-  str = str.split("");
-  str[0] = str[0].toUpperCase();
-  return str.join("");
+// Listening for player selection //
+
+let buttons = document.querySelectorAll(".player-selection__btn");
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", game);
+});
+
+// Getting player choice in terms of game option //
+function getPlayerChoice(e) {
+  let converEmojiToString = e.target.textContent
+    .trim()
+    .codePointAt(0)
+    .toString(16);
+
+  let convertToGameOption = null;
+
+  // let emo = String.fromCodePoint("0x" + converEmojiToString);
+
+  converEmojiToString === "270a"
+    ? (convertToGameOption = "rock")
+    : converEmojiToString === "270b"
+    ? (convertToGameOption = "paper")
+    : converEmojiToString === "1f918"
+    ? (convertToGameOption = "scissors")
+    : null;
+
+  return convertToGameOption;
 }
 
-function printCurrentRound(currentRound) {
-  let currentRoundPara = document.querySelector(".round-number__current");
-  currentRoundPara.textContent = `Current Round Is : ${currentRound}`;
-}
-
+// Getting random computer choice //
 function getComputerChoice() {
   let min = 1;
   let max = 3;
@@ -63,6 +78,38 @@ function getComputerChoice() {
   }
 }
 
+// Play the round //
+function playRound(playerSelection, computerSelection) {
+  if (
+    (computerSelection === "rock" && playerSelection === "paper") ||
+    (computerSelection === "scissors" && playerSelection === "rock") ||
+    (computerSelection === "paper" && playerSelection === "scissors")
+  ) {
+    return "player";
+  } else if (playerSelection === computerSelection) {
+    return "tie";
+  } else {
+    return "computer";
+  }
+}
+
+// Add score //
+
+function addScore(winner) {
+  if (winner === "computer") {
+    computerPoints += 1;
+  } else if (winner === "player") {
+    playerPoints += 1;
+  }
+}
+
+// Printing current round //
+function printCurrentRound(currentRound) {
+  let currentRoundPara = document.querySelector(".round-number__current");
+  currentRoundPara.textContent = `Current Round Is : ${currentRound}`;
+}
+
+// Print player picks with emojis //
 function printPlayersPicks(playerSelection, computerSelection) {
   let playerPickPara = document.querySelector(".picks_player__emoji");
   let computerPickPara = document.querySelector(".picks__computer__emoji");
@@ -93,19 +140,7 @@ function printPlayersPicks(playerSelection, computerSelection) {
   computerPickPara.innerHTML = `${convertComputerToEmoji}`;
 }
 
-function playRound(playerSelection, computerSelection) {
-  if (
-    (computerSelection === "rock" && playerSelection === "paper") ||
-    (computerSelection === "scissors" && playerSelection === "rock") ||
-    (computerSelection === "paper" && playerSelection === "scissors")
-  ) {
-    return "player";
-  } else if (playerSelection === computerSelection) {
-    return "tie";
-  } else {
-    return "computer";
-  }
-}
+// Print round winner //
 
 function printRoundWinner(winner, playerSelection, computerSelection) {
   let printRoundMessage = document.querySelector(".round-winner__message");
@@ -121,13 +156,7 @@ function printRoundWinner(winner, playerSelection, computerSelection) {
     : (exlpainWinner.textContent = `${computerSelection} beats ${playerSelection}`);
 }
 
-function addScore(winner) {
-  if (winner === "computer") {
-    computerPoints += 1;
-  } else if (winner === "player") {
-    playerPoints += 1;
-  }
-}
+// Print current score //
 
 function printScore(playerPoints, computerPoints) {
   let playerScorePara = document.querySelector(".score__player");
@@ -137,6 +166,7 @@ function printScore(playerPoints, computerPoints) {
   computerScorePara.textContent = `Computer Points:${computerPoints}`;
 }
 
+// Calculate game winner //
 function calcGameWinner() {
   if (computerPoints > playerPoints) {
     return "computer";
@@ -147,56 +177,7 @@ function calcGameWinner() {
   }
 }
 
-function printPlayAgainBtn() {
-  let gameWinnerDiv = document.querySelector("#game-winner");
-  let playAgainBtn = document.createElement("button");
-  playAgainBtn.textContent = "Play Again";
-  playAgainBtn.classList.add("play-again-btn");
-  playAgainBtn.addEventListener("click", resetGameScore);
-  gameWinnerDiv.appendChild(playAgainBtn);
-}
-
-// Listening for player selection
-
-let buttons = document.querySelectorAll(".player-selection__btn");
-console.log(buttons);
-
-buttons.forEach((btn) => {
-  btn.addEventListener("click", game);
-  // console.log(btn);
-});
-
-function getPlayerChoice(e) {
-  let converEmojiToString = e.target.textContent
-    .trim()
-    .codePointAt(0)
-    .toString(16);
-
-  let convertToGameOption = null;
-
-  let emo = String.fromCodePoint("0x" + converEmojiToString);
-
-  converEmojiToString === "270a"
-    ? (convertToGameOption = "rock")
-    : converEmojiToString === "270b"
-    ? (convertToGameOption = "paper")
-    : converEmojiToString === "1f918"
-    ? (convertToGameOption = "scissors")
-    : null;
-
-  return convertToGameOption;
-}
-
-function removeListeners() {
-  let allPlayerSelectionBtn = document.querySelectorAll(
-    ".player-selection__btn"
-  );
-  console.log(allPlayerSelectionBtn);
-  allPlayerSelectionBtn.forEach((btn) => {
-    btn.removeEventListener("click", game);
-  });
-}
-
+// Printing Winner //
 function printWinner(winner) {
   let modal = document.querySelector(".modal");
   let winnerMessage = document.querySelector(".winner-display__message");
@@ -219,21 +200,7 @@ function printWinner(winner) {
   });
 }
 
-function toggleModal() {
-  let modal = document.querySelector(".modal");
-  modal.classList.remove("hidden");
-  let wrapper = document.querySelector(".wrapper");
-  wrapper.classList.toggle("modal-active");
-}
-function hidemodal(e) {
-  let modal = document.querySelector(".modal");
-  let wrapper = document.querySelector(".wrapper");
-  console.log("hidingggg");
-  if (modal.classList.value === "modal") {
-    modal.classList.toggle("hidden");
-    wrapper.classList.toggle("modal-active");
-  }
-}
+// Reset Score //
 
 function resetGameScore() {
   let currentRoundReset = document.querySelector(".round-number__current");
@@ -245,23 +212,28 @@ function resetGameScore() {
   let playerPointsReset = document.querySelector(".score__player");
   playerPointsReset.textContent = "Player Points: 0";
 
-  let picksComputerReset = document.querySelector(".picks__computer");
-  picksComputerReset.textContent = "Computer Selected: ?";
+  let picksComputerMessageReset = document.querySelector(
+    ".picks__computer__message"
+  );
+  picksComputerMessageReset.textContent = "Computer Selected: ";
 
-  let picksPlayerReset = document.querySelector(".picks__player");
-  picksPlayerReset.textContent = "Player Selected: ?";
+  let pickPlayerEmojiReset = document.querySelector(".picks_player__emoji");
+  pickPlayerEmojiReset.textContent = "?";
+
+  let picksComputerEmojiReset = document.querySelector(
+    ".picks__computer__emoji"
+  );
+  picksComputerEmojiReset.textContent = "?";
 
   let roundWinnerMessageReset = document.querySelector(
     ".round-winner__message"
   );
-  roundWinnerMessageReset.textContent = "";
+  roundWinnerMessageReset.textContent = "Choose your pick";
 
-  let gameWinnerMessageReset = document.querySelector(".game-winner__message");
-  gameWinnerMessageReset.textContent = "";
-
-  let playAgainBtn = document.querySelector(".play-again-btn");
-  let gameWinnerDiv = document.querySelector("#game-winner");
-  gameWinnerDiv.removeChild(playAgainBtn);
+  let roundWinnerInstructions = document.querySelector(
+    ".round-winner__instructions"
+  );
+  roundWinnerInstructions.textContent = "First to 5 wins";
 
   currentRound = 0;
 
@@ -269,11 +241,8 @@ function resetGameScore() {
   playerPoints = 0;
 
   let buttons = document.querySelectorAll(".player-selection__btn");
-  console.log(buttons);
-
   buttons.forEach((btn) => {
     btn.removeEventListener("click", toggleModal);
-
     btn.addEventListener("click", game);
   });
 
@@ -286,11 +255,75 @@ function resetGameScore() {
   let activeBackgroundOverlay = document.querySelector(".background-overlay");
   activeBackgroundOverlay.classList.add("hidden");
   activeBackgroundOverlay.removeEventListener("click", hidemodal);
-  //   let backgroundOverlay = document.querySelector(".background-overlay");
-  // }
+}
+//////// UI elements Reference ////////
 
-  // function listetningToOverlay(backgroundOverlay) {
-  //   // document.addEventListener("click", (e) => {
-  //   //   if (e.ta)
-  //   // })
+// Background Overlay
+let activeBackgroundOverlay = document.querySelector(".background-overlay");
+
+// Modal
+let modal = document.querySelector(".modal");
+let winnerMessage = document.querySelector(".winner-display__message");
+let playAgainBtn = document.querySelector(".play-again-button");
+
+// Wrapper
+let wrapper = document.querySelector(".wrapper");
+
+// Score
+let playerScorePara = document.querySelector(".score__player");
+let computerScorePara = document.querySelector(".score__computer");
+
+// Round Winner
+let printRoundMessage = document.querySelector(".round-winner__message");
+
+let exlpainWinner = document.querySelector(".round-winner__instructions");
+
+// Picks
+let playerPickPara = document.querySelector(".picks_player__emoji");
+let computerPickPara = document.querySelector(".picks__computer__emoji");
+
+// Round Number
+let currentRoundPara = document.querySelector(".round-number__current");
+
+// Player selection
+// let buttons = document.querySelectorAll(".player-selection__btn");
+
+//////// Utility Functions //////
+
+// Convert first letter to capital case //
+function converToFirstLetter(str) {
+  str = str.split("");
+  str[0] = str[0].toUpperCase();
+  return str.join("");
+}
+
+// Remove Listeners //
+
+function removeListeners() {
+  let allPlayerSelectionBtn = document.querySelectorAll(
+    ".player-selection__btn"
+  );
+  console.log(allPlayerSelectionBtn);
+  allPlayerSelectionBtn.forEach((btn) => {
+    btn.removeEventListener("click", game);
+  });
+}
+
+// Toggle Modal //
+function toggleModal() {
+  let modal = document.querySelector(".modal");
+  modal.classList.remove("hidden");
+  let wrapper = document.querySelector(".wrapper");
+  wrapper.classList.toggle("modal-active");
+}
+
+// Hide Modal //
+function hidemodal(e) {
+  let modal = document.querySelector(".modal");
+  let wrapper = document.querySelector(".wrapper");
+  console.log("hidingggg");
+  if (modal.classList.value === "modal") {
+    modal.classList.toggle("hidden");
+    wrapper.classList.toggle("modal-active");
+  }
 }
