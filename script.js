@@ -147,14 +147,31 @@ function calcGameWinner() {
 }
 
 function printWinner(winner) {
-  let winnerMessage = document.querySelector(".game-winner__message");
-  debugger;
-  let winnerDecleration = document.querySelector(".game-winner__decleration");
-  winnerMessage.textContent = "Game over!";
+  // let winnerMessage = document.querySelector(".game-winner__message");
+  // debugger;
+  // let winnerDecleration = document.querySelector(".game-winner__decleration");
+  // winnerMessage.textContent = "Game over!";
+  // winner === "tie"
+  //   ? (winnerDecleration.textContent = "I'ts a tie game !")
+  //   : (winnerDecleration.textContent =
+  //       `The winner is: ${winner}`.toUpperCase());
+
+  let modal = document.querySelector(".modal");
+  let winnerMessage = document.querySelector(".winner-display__message");
+  let playAgainBtn = document.querySelector(".play-again-button");
+  let wrapper = document.querySelector(".wrapper");
+
   winner === "tie"
-    ? (winnerDecleration.textContent = "I'ts a tie game !")
-    : (winnerDecleration.textContent =
-        `The winner is: ${winner}`.toUpperCase());
+    ? (winnerMessage.textContent = "It's a tie!")
+    : (winnerMessage.textContent = `The Winner Is ${winner}`);
+
+  modal.classList.toggle("hidden");
+  wrapper.classList.toggle("modal-active");
+  debugger;
+
+  playAgainBtn.addEventListener("click", () => {
+    console.log("clicking baby");
+  });
 }
 
 function printPlayAgainBtn() {
