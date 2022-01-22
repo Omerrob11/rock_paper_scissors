@@ -5,6 +5,7 @@ let computerPoints = 0;
 let playerPoints = 0;
 
 function game(e) {
+  console.log(e);
   currentRound++;
   printCurrentRound(currentRound);
 
@@ -146,34 +147,6 @@ function calcGameWinner() {
   }
 }
 
-function printWinner(winner) {
-  // let winnerMessage = document.querySelector(".game-winner__message");
-  // debugger;
-  // let winnerDecleration = document.querySelector(".game-winner__decleration");
-  // winnerMessage.textContent = "Game over!";
-  // winner === "tie"
-  //   ? (winnerDecleration.textContent = "I'ts a tie game !")
-  //   : (winnerDecleration.textContent =
-  //       `The winner is: ${winner}`.toUpperCase());
-
-  let modal = document.querySelector(".modal");
-  let winnerMessage = document.querySelector(".winner-display__message");
-  let playAgainBtn = document.querySelector(".play-again-button");
-  let wrapper = document.querySelector(".wrapper");
-
-  winner === "tie"
-    ? (winnerMessage.textContent = "It's a tie!")
-    : (winnerMessage.textContent = `The Winner Is ${winner}`);
-
-  modal.classList.toggle("hidden");
-  wrapper.classList.toggle("modal-active");
-  debugger;
-
-  playAgainBtn.addEventListener("click", () => {
-    console.log("clicking baby");
-  });
-}
-
 function printPlayAgainBtn() {
   let gameWinnerDiv = document.querySelector("#game-winner");
   let playAgainBtn = document.createElement("button");
@@ -224,6 +197,44 @@ function removeListeners() {
   });
 }
 
+function printWinner(winner) {
+  let modal = document.querySelector(".modal");
+  let winnerMessage = document.querySelector(".winner-display__message");
+  let playAgainBtn = document.querySelector(".play-again-button");
+  let wrapper = document.querySelector(".wrapper");
+  let activeBackgroundOverlay = document.querySelector(".background-overlay");
+
+  winner === "tie"
+    ? (winnerMessage.textContent = "It's a tie!")
+    : (winnerMessage.textContent = `The Winner Is ${winner}`);
+  modal.classList.toggle("hidden");
+  wrapper.classList.toggle("modal-active");
+  playAgainBtn.addEventListener("click", resetGameScore);
+
+  activeBackgroundOverlay.classList.toggle("hidden");
+  activeBackgroundOverlay.addEventListener("click", hidemodal);
+  let buttons = document.querySelectorAll(".player-selection__btn");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", toggleModal);
+  });
+}
+
+function toggleModal() {
+  let modal = document.querySelector(".modal");
+  modal.classList.remove("hidden");
+  let wrapper = document.querySelector(".wrapper");
+  wrapper.classList.toggle("modal-active");
+}
+function hidemodal(e) {
+  let modal = document.querySelector(".modal");
+  let wrapper = document.querySelector(".wrapper");
+  console.log("hidingggg");
+  if (modal.classList.value === "modal") {
+    modal.classList.toggle("hidden");
+    wrapper.classList.toggle("modal-active");
+  }
+}
+
 function resetGameScore() {
   let currentRoundReset = document.querySelector(".round-number__current");
   currentRoundReset.textContent = "Current Round Is : 0";
@@ -261,7 +272,25 @@ function resetGameScore() {
   console.log(buttons);
 
   buttons.forEach((btn) => {
+    btn.removeEventListener("click", toggleModal);
+
     btn.addEventListener("click", game);
-    // console.log(btn);
   });
+
+  let modal = document.querySelector(".modal");
+  modal.classList.toggle("hidden");
+
+  let wrapper = document.querySelector(".wrapper");
+  wrapper.classList.toggle("modal-active");
+
+  let activeBackgroundOverlay = document.querySelector(".background-overlay");
+  activeBackgroundOverlay.classList.add("hidden");
+  activeBackgroundOverlay.removeEventListener("click", hidemodal);
+  //   let backgroundOverlay = document.querySelector(".background-overlay");
+  // }
+
+  // function listetningToOverlay(backgroundOverlay) {
+  //   // document.addEventListener("click", (e) => {
+  //   //   if (e.ta)
+  //   // })
 }
