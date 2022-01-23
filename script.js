@@ -3,6 +3,40 @@ let currentRound = 0;
 let computerPoints = 0;
 let playerPoints = 0;
 
+//////// UI elements Reference ////////
+
+// Background Overlay
+let activeBackgroundOverlay = document.querySelector(".background-overlay");
+
+// Modal
+let modal = document.querySelector(".modal");
+let winnerMessage = document.querySelector(".winner-display__message");
+let playAgainBtn = document.querySelector(".play-again-button");
+
+// Wrapper
+let wrapper = document.querySelector(".wrapper");
+
+// Score
+let playerScorePara = document.querySelector(".score__player");
+let computerScorePara = document.querySelector(".score__computer");
+
+// Round Winner
+let printRoundMessage = document.querySelector(".round-winner__message");
+
+let roundWinnerInsturctions = document.querySelector(
+  ".round-winner__instructions"
+);
+
+// Picks
+let playerPickPara = document.querySelector(".picks_player__emoji");
+let computerPickPara = document.querySelector(".picks__computer__emoji");
+
+// Round Number [v]
+let currentRoundPara = document.querySelector(".round-number__current");
+
+// Player selection
+let playerSelectionBtns = document.querySelectorAll(".player-selection__btn");
+
 function game(e) {
   currentRound++;
   printCurrentRound(currentRound);
@@ -34,10 +68,7 @@ function game(e) {
 }
 
 // Listening for player selection //
-
-let buttons = document.querySelectorAll(".player-selection__btn");
-
-buttons.forEach((btn) => {
+playerSelectionBtns.forEach((btn) => {
   btn.addEventListener("click", game);
 });
 
@@ -105,15 +136,11 @@ function addScore(winner) {
 
 // Printing current round //
 function printCurrentRound(currentRound) {
-  let currentRoundPara = document.querySelector(".round-number__current");
   currentRoundPara.textContent = `Current Round Is : ${currentRound}`;
 }
 
 // Print player picks with emojis //
 function printPlayersPicks(playerSelection, computerSelection) {
-  let playerPickPara = document.querySelector(".picks_player__emoji");
-  let computerPickPara = document.querySelector(".picks__computer__emoji");
-
   let convertPlayerToEmoji = null;
 
   switch (playerSelection) {
@@ -143,25 +170,20 @@ function printPlayersPicks(playerSelection, computerSelection) {
 // Print round winner //
 
 function printRoundWinner(winner, playerSelection, computerSelection) {
-  let printRoundMessage = document.querySelector(".round-winner__message");
   winner === "tie"
     ? (printRoundMessage.textContent = "It's A Tie")
     : (printRoundMessage.textContent = `The Winner Of This Round Is: ${winner.toUpperCase()}`);
 
-  let exlpainWinner = document.querySelector(".round-winner__instructions");
   winner === "tie"
-    ? (exlpainWinner.textContent = `You both picked ${playerSelection}`)
+    ? (roundWinnerInsturctions.textContent = `You both picked ${playerSelection}`)
     : winner === "player"
-    ? (exlpainWinner.textContent = `${playerSelection} beats ${computerSelection}`)
-    : (exlpainWinner.textContent = `${computerSelection} beats ${playerSelection}`);
+    ? (roundWinnerInsturctions.textContent = `${playerSelection} beats ${computerSelection}`)
+    : (roundWinnerInsturctions.textContent = `${computerSelection} beats ${playerSelection}`);
 }
 
 // Print current score //
 
 function printScore(playerPoints, computerPoints) {
-  let playerScorePara = document.querySelector(".score__player");
-  let computerScorePara = document.querySelector(".score__computer");
-
   playerScorePara.textContent = `Player Points: ${playerPoints}`;
   computerScorePara.textContent = `Computer Points:${computerPoints}`;
 }
@@ -179,12 +201,6 @@ function calcGameWinner() {
 
 // Printing Winner //
 function printWinner(winner) {
-  let modal = document.querySelector(".modal");
-  let winnerMessage = document.querySelector(".winner-display__message");
-  let playAgainBtn = document.querySelector(".play-again-button");
-  let wrapper = document.querySelector(".wrapper");
-  let activeBackgroundOverlay = document.querySelector(".background-overlay");
-
   winner === "tie"
     ? (winnerMessage.textContent = "It's a tie!")
     : (winnerMessage.textContent = `The Winner Is ${winner}`);
@@ -194,8 +210,8 @@ function printWinner(winner) {
 
   activeBackgroundOverlay.classList.toggle("hidden");
   activeBackgroundOverlay.addEventListener("click", hidemodal);
-  let buttons = document.querySelectorAll(".player-selection__btn");
-  buttons.forEach((btn) => {
+
+  playerSelectionBtns.forEach((btn) => {
     btn.addEventListener("click", toggleModal);
   });
 }
@@ -203,90 +219,37 @@ function printWinner(winner) {
 // Reset Score //
 
 function resetGameScore() {
-  let currentRoundReset = document.querySelector(".round-number__current");
-  currentRoundReset.textContent = "Current Round Is : 0";
+  currentRoundPara.textContent = "Current Round Is : 0";
 
-  let computerScoreReset = document.querySelector(".score__computer");
-  computerScoreReset.textContent = "Computer Points: 0";
+  computerScorePara.textContent = "Computer Points: 0";
 
-  let playerPointsReset = document.querySelector(".score__player");
-  playerPointsReset.textContent = "Player Points: 0";
+  playerScorePara.textContent = "Player Points: 0";
 
-  let picksComputerMessageReset = document.querySelector(
-    ".picks__computer__message"
-  );
-  picksComputerMessageReset.textContent = "Computer Selected: ";
+  playerPickPara.textContent = "?";
 
-  let pickPlayerEmojiReset = document.querySelector(".picks_player__emoji");
-  pickPlayerEmojiReset.textContent = "?";
+  computerPickPara.textContent = "?";
 
-  let picksComputerEmojiReset = document.querySelector(
-    ".picks__computer__emoji"
-  );
-  picksComputerEmojiReset.textContent = "?";
+  printRoundMessage.textContent = "Choose your pick";
 
-  let roundWinnerMessageReset = document.querySelector(
-    ".round-winner__message"
-  );
-  roundWinnerMessageReset.textContent = "Choose your pick";
-
-  let roundWinnerInstructions = document.querySelector(
-    ".round-winner__instructions"
-  );
-  roundWinnerInstructions.textContent = "First to 5 wins";
+  roundWinnerInsturctions.textContent = "First to 5 wins";
 
   currentRound = 0;
 
   computerPoints = 0;
   playerPoints = 0;
 
-  let buttons = document.querySelectorAll(".player-selection__btn");
-  buttons.forEach((btn) => {
+  playerSelectionBtns.forEach((btn) => {
     btn.removeEventListener("click", toggleModal);
     btn.addEventListener("click", game);
   });
 
-  let modal = document.querySelector(".modal");
   modal.classList.toggle("hidden");
 
-  let wrapper = document.querySelector(".wrapper");
   wrapper.classList.toggle("modal-active");
 
-  let activeBackgroundOverlay = document.querySelector(".background-overlay");
   activeBackgroundOverlay.classList.add("hidden");
   activeBackgroundOverlay.removeEventListener("click", hidemodal);
 }
-//////// UI elements Reference ////////
-
-// Background Overlay
-let activeBackgroundOverlay = document.querySelector(".background-overlay");
-
-// Modal
-let modal = document.querySelector(".modal");
-let winnerMessage = document.querySelector(".winner-display__message");
-let playAgainBtn = document.querySelector(".play-again-button");
-
-// Wrapper
-let wrapper = document.querySelector(".wrapper");
-
-// Score
-let playerScorePara = document.querySelector(".score__player");
-let computerScorePara = document.querySelector(".score__computer");
-
-// Round Winner
-let printRoundMessage = document.querySelector(".round-winner__message");
-
-let exlpainWinner = document.querySelector(".round-winner__instructions");
-
-// Picks
-let playerPickPara = document.querySelector(".picks_player__emoji");
-let computerPickPara = document.querySelector(".picks__computer__emoji");
-
-// Round Number
-let currentRoundPara = document.querySelector(".round-number__current");
-
-// Player selection
-// let buttons = document.querySelectorAll(".player-selection__btn");
 
 //////// Utility Functions //////
 
@@ -300,28 +263,19 @@ function converToFirstLetter(str) {
 // Remove Listeners //
 
 function removeListeners() {
-  let allPlayerSelectionBtn = document.querySelectorAll(
-    ".player-selection__btn"
-  );
-  console.log(allPlayerSelectionBtn);
-  allPlayerSelectionBtn.forEach((btn) => {
+  playerSelectionBtns.forEach((btn) => {
     btn.removeEventListener("click", game);
   });
 }
 
 // Toggle Modal //
 function toggleModal() {
-  let modal = document.querySelector(".modal");
   modal.classList.remove("hidden");
-  let wrapper = document.querySelector(".wrapper");
   wrapper.classList.toggle("modal-active");
 }
 
 // Hide Modal //
 function hidemodal(e) {
-  let modal = document.querySelector(".modal");
-  let wrapper = document.querySelector(".wrapper");
-  console.log("hidingggg");
   if (modal.classList.value === "modal") {
     modal.classList.toggle("hidden");
     wrapper.classList.toggle("modal-active");
