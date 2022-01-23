@@ -62,7 +62,6 @@ function game(e) {
   if (computerPoints === 5 || playerPoints === 5) {
     let winner = calcGameWinner();
     printWinner(winner);
-    // printPlayAgainBtn();
     removeListeners();
   }
 }
@@ -80,8 +79,6 @@ function getPlayerChoice(e) {
     .toString(16);
 
   let convertToGameOption = null;
-
-  // let emo = String.fromCodePoint("0x" + converEmojiToString);
 
   converEmojiToString === "270a"
     ? (convertToGameOption = "rock")
@@ -220,21 +217,13 @@ function printWinner(winner) {
 
 function resetGameScore() {
   currentRoundPara.textContent = "Current Round Is : 0";
-
   computerScorePara.textContent = "Computer Points: 0";
-
   playerScorePara.textContent = "Player Points: 0";
-
   playerPickPara.textContent = "?";
-
   computerPickPara.textContent = "?";
-
   printRoundMessage.textContent = "Choose your pick";
-
   roundWinnerInsturctions.textContent = "First to 5 wins";
-
   currentRound = 0;
-
   computerPoints = 0;
   playerPoints = 0;
 
@@ -242,11 +231,8 @@ function resetGameScore() {
     btn.removeEventListener("click", toggleModal);
     btn.addEventListener("click", game);
   });
-
   modal.classList.toggle("hidden");
-
   wrapper.classList.toggle("modal-active");
-
   activeBackgroundOverlay.classList.add("hidden");
   activeBackgroundOverlay.removeEventListener("click", hidemodal);
 }

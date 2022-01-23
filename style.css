@@ -128,7 +128,6 @@ p {
 
 /****** wrapper ******/
 .wrapper {
-  border: 2px solid red;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -171,7 +170,6 @@ p {
 
 /****** Round Number Section *******/
 #round-number {
-  border: 2px solid blue;
   display: flex;
   justify-content: center;
   padding: 16px;
@@ -182,12 +180,10 @@ p {
   display: flex;
   justify-content: center;
   gap: 16px;
-  border: 2px solid red;
 }
 
 /******* Players Picks Section *******/
 #picks {
-  border: 2px solid red;
   display: flex;
   justify-content: space-around;
   padding: 16px;
@@ -291,7 +287,6 @@ p {
   right: 0;
   bottom: 0;
   display: block;
-  border: 2px solid red;
 }
 .hidden {
   display: none;
